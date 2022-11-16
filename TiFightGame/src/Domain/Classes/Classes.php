@@ -1,11 +1,9 @@
 <?php
-require_once('src/Domain/Classes/Warrior.php');
-require_once('src/Domain/Classes/Striker.php');
-require_once('src/Domain/Classes/Knight.php');
-require_once('src/Domain/Classes/Wizard.php');
+require_once('/laragon/www/TiFightGame/src/Domain/Shield/Shield.php');
 class Classes
 {
     public string $name = '';
+    public string $class;
     public float $health = 100;
     public float $damage = 2;
     public float $armor = 0;
@@ -13,6 +11,22 @@ class Classes
     public float $attack_speed = 3;
 
     protected Weapon $weapon;
+    protected Shield $shield;
+
+
+    public function __construct()
+    {
+        $this->weapon = new Weapon;
+        $this->shield = new Shield;
+    }
+    public static function load($character_id)
+    {
+        // go chercher quelle classe/weapon/bouclier en base
+
+        // si ta classse = Knight ==> new knight
+
+        // return $classe
+    }
 
     public function attack($enemy)
     {
@@ -22,17 +36,17 @@ class Classes
             echo $this->getName() . " donne un coup de poing à " . $enemy->getName() . "<br/>";
             $enemy->takeDamage($this->getPlayerDamage());
         } else if (isset($this->weapon) && (!$this->weapon instanceof MagicWand)) {
-            echo $this->getName() . " attaque " . $enemy->getName() . " avec " . $this->weapon->getName() . "<br/>";
+            echo $this->getName() . " attaque " . $enemy->getName() . "<br/>";
             $enemy->takeDamage($this->getPlayerDamage());
         } else if ($this->weapon instanceof MagicWand) {
             $this->magicAttack($enemy);
         }
         if (rand(1, 100) <= $this->getPlayerAttackSpeed()) {
-            if (!$this->weapon instanceof MagicWand) {
+            if (isset($this->weapon) && (!$this->weapon instanceof MagicWand)) {
                 echo $this->getName() . " réattaque directement " . $enemy->getName() . " grâce à sa vitesse d'attaque ! <br/>";
                 $enemy->takeDamage($this->getPlayerDamage());
             }
-            if ($this->weapon instanceof MagicWand) {
+            if (isset($this->weapon) && ($this->weapon instanceof MagicWand)) {
                 echo $this->getName() . " relance un sort directement sur " . $enemy->getName() . " grâce à sa vitesse d'attaque ! <br/>";
                 $this->magicAttack($enemy);
             }
@@ -76,7 +90,11 @@ class Classes
 
     public function getPlayerAttackSpeed()
     {
-        return $this->attack_speed + $this->weapon->getAttackSpeed();
+        if (isset($this->weapon)  && ($this->weapon instanceof Weapon)) {
+            return $this->attack_speed + $this->weapon->getAttackSpeed();
+        } else {
+            return $this->attack_speed;
+        }
     }
     public function magicAttack($enemy)
     {
@@ -112,5 +130,122 @@ class Classes
     public function isAlive()
     {
         return ($this->health > 0);
+    }
+
+    public function getArmor()
+    {
+        // return $this->armor;
+
+        if (isset($this->shield)  && ($this->shield instanceof Shield)) {
+            return $this->armor + $this->shield->getShieldArmor();
+        } else {
+            return $this->armor;
+        }
+    }
+
+    public function getMana()
+    {
+        return $this->mana;
+    }
+
+    public function getClassName()
+    {
+        return $this->class;
+    }
+
+    public function getWeaponName()
+    {
+        if (isset($this->weapon)) {
+            return $this->weapon->getWeaponName();
+        } else {
+           return $this->weaponName = "Aucune";
+        }
+    }
+    public function getShieldName()
+    {
+        if (isset($this->shield)) {
+            return $this->shield->getShieldName();
+        } else {
+            return $this->shieldName = "Aucun";
+         }
+    }
+
+    public function getSelectedCharacter($idCharacter)
+    {
+        $db = DataBase::getInstance();
+        $sqlQuery = 'SELECT id_user, name_user, name, classe, weapon, shield FROM `characters` WHERE id_character = :id_character';
+        $character = $db->prepare($sqlQuery);
+        $character->execute(
+            [
+                'id_character' => $idCharacter,
+            ]
+        );
+        $characterStats = $character->fetch(PDO::FETCH_ASSOC);
+        if (!empty($characterStats)) {
+            return $characterStats;
+        } else {
+            return [];
+        }
+    }
+    public function loadWeapon($idCharacter)
+    {
+        $character = $this->getSelectedCharacter($idCharacter);
+        if ($character['weapon'] == 'Épée') {
+            $characterWeapon = new Sword();
+            return $characterWeapon;
+        } elseif ($character['weapon'] == 'Baguette basique') {
+            $characterWeapon = new MagicWand();
+            return $characterWeapon;
+        } else {
+            throw new Exception("Une erreur est survenue lors du chargement de votre arme");
+        }
+    }
+    public function loadShield($idCharacter)
+    {
+        $character = $this->getSelectedCharacter($idCharacter);
+        if ($character['shield'] != "null") {
+            $characterShield = new BasicShield();
+            return $characterShield;
+        }
+    }
+
+    public function loadClasse($idCharacter)
+    {
+        $character = $this->getSelectedCharacter($idCharacter);
+        if ($character['weapon'] != "Aucune") {
+            if ($character['classe'] == 'Combattant') {
+                $characterClasse = new Warrior($character['name'], $this->loadWeapon($idCharacter));
+                return $characterClasse;
+            } elseif ($character['classe'] == 'Sorcier') {
+                $characterClasse = new Wizard($character['name'], $this->loadWeapon($idCharacter));
+                return $characterClasse;
+            } elseif ($character['classe'] == 'Chevalier') {
+                $characterClasse = new Knight($character['name'], $this->loadWeapon($idCharacter), $this->loadShield($idCharacter));
+                return $characterClasse;
+            } elseif ($character['classe'] == 'Percuteur') {
+                $characterClasse = new Striker($character['name'], $this->loadWeapon($idCharacter));
+                return $characterClasse;
+            }
+        }
+        if ($character['weapon'] == "Aucune") {
+            if ($character['classe'] == 'Combattant') {
+                $characterClasse = new Warrior($character['name']);
+                return $characterClasse;
+            } elseif ($character['classe'] == 'Sorcier') {
+                $characterClasse = new Wizard($character['name']);
+                return $characterClasse;
+            } elseif ($character['classe'] == 'Chevalier') {
+                $characterClasse = new Knight($character['name']);
+                return $characterClasse;
+            } elseif ($character['classe'] == 'Percuteur') {
+                $characterClasse = new Striker($character['name']);
+                return $characterClasse;
+            }
+        }
+    }
+    public static function unloadClasse()
+    {
+        unset($_SESSION['characterSelectedId']);
+        unset($_SESSION['opponentSelectedId']);
     }
 }

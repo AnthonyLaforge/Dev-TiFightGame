@@ -9,21 +9,23 @@
 </head>
 
 <body>
+
+    <?php if (isset($error)) : ?>
+        <span class="error"> <?php echo $error->getMessage(); ?></span>
+    <?php endif ?>
     <?php if (!isset($_GET["register"])) : ?>
-        <?php if (isset($_GET["error"])) : ?>
-            <span class="error">Email/mot de passe incorrect !</span>
-        <?php endif ?>
-        <form action="/src/controllers/connexion.php" method="post">
+        <span class="back"><a href="index.php">Retour</a></span>
+        <form action="index.php?controller=connexion" method="post">
             <label for="name">Nom d'utilisateur</label>
             <input type="text" name="name" id="name" required>
             <label for="password">Mot de passe</label>
             <input type="text" name="password" id="password" required>
             <input type="submit" value="Connexion">
         </form>
-        <a href="connexion.php?register">Je n'ai pas de compte</a>
+        <span class="noaccount"> <a href="index.php?controller=connexion&register">Je n'ai pas de compte</a></span>
     <?php endif ?>
     <?php if (isset($_GET["register"])) : ?>
-        <form action="/src/controllers/connexion.php?register" method="post">
+        <form action="index.php?controller=connexion&register" method="post">
             <label for="name">Nom d'utilisateur</label>
             <input type="text" name="name" id="name" required>
             <label for="mail">Adresse mail</label>
@@ -34,13 +36,7 @@
             <input type="password" name="confirmpassword" id="confirmpassword" required>
             <input type="submit" value="S'inscrire">
         </form>
-        <?php if (isset($_GET["error"])) : ?>
-            <span class="error">Nom/Adresse mail déja utilisé !</span>
-        <?php endif ?>
-        <?php if (isset($_GET["diffpassword"])) : ?>
-            <span class="error">Les mots de passe ne sont pas identique !</span>
-        <?php endif ?>
-        <spawn class="back"><a href="connexion.php">Retour</a></spawn>
+        <span class="back"><a href="index.php?controller=connexion">Retour</a></span>
     <?php endif ?>
 </body>
 

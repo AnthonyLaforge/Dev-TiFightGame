@@ -1,0 +1,9 @@
+
+#mycharacters{
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  border-radius: 2px;
+  border-width: 2px;
+  border-style: solid;
+}

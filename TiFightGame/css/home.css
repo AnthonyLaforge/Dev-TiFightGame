@@ -1,8 +1,7 @@
 
 body{
     background: linear-gradient(45deg, rgb(253, 61, 3) 0%, rgb(240, 102, 11) 50%, rgb(255, 217, 0) 100%) no-repeat;
-    background-size: cover;
-    height: auto;
+    height: 921px;
 }
 #title{
     text-align: center;
@@ -11,22 +10,28 @@ body{
     display: flex;
     flex-direction: column;
     margin: auto;
+    margin-top: 100px;
     border-width: 2px;
     border-style: solid;
-    background-color: rgb(34, 221, 50);
-    width: fit-content;
+    background-color: rgb(255, 255, 255);
     padding: 5px;
+    width: 500px;
+    height: fit-content;
     text-align: center;
+    align-items: center;
+    font-size: 2em;
+}
+.userpanel a{
+    text-decoration: none;
 }
 
-#game{
-    background-color: white;
-    font-style: oblique;
-    font-weight: bolder;
-    font-size: larger;
+#launchgame {
     text-align: center;
-    border-width: 2px;
-    border-style: solid;
-    width: 500px;
-    margin: auto;
+    font-size: 5em;
+    
+}
+
+#launchgame a{
+    text-decoration: none;
+    color: black;
 }

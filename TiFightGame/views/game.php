@@ -1,8 +1,4 @@
 <?php
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
-require_once('src/controllers/game.php');
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -15,18 +11,53 @@ require_once('src/controllers/game.php');
 </head>
 
 <body>
-    <div id="game">
-        <form action="/src/controllers/game.php" method="post">
-            <label for="character-name">Choix du personnage</label>
-            <select name="character-select">
-                <option value="">--Choisir un personnage--</option>
-                <?php foreach ($userCharacters as $character) : ?>
-                    <option value="<?php $character['name'] ?>"><?php echo $character['name'] ?></option>
-                <?php endforeach; ?>
-            </select> </br>
-            <input type="submit" value="Valider">
-            <?php var_dump($character) ?>
+    <a href="/index.php">Retour</a>
+    <?php if (!isset($_SESSION['opponentSelectedId']) && !isset($_SESSION['characterSelectedId'])) : ?>
+        <div id="choose-character">
+            <form action="index.php?controller=game" method="post">
+                <label for="character-name">Choix du personnage</label>
+                <select name="character-select">
+                    <option value="">--Choisir un personnage--</option>
+                    <?php foreach ($mycharacters as $mycharacter) : ?>
+                        <option id="name" value="<?php echo $mycharacter['name'] ?>"><?php echo $mycharacter['name'] ?></option>
+                    <?php endforeach; ?>
+                </select> </br>
+                <input type="submit" value="Valider">
+            </form>
+        </div>
+    <?php endif; ?>
+    <div id="character-stats">
+        <div id="player-stats">
+            <?php if (isset($_SESSION['characterSelectedId'])) {
+                var_dump($charactersStats = $this->getCharacterStats($_SESSION['characterSelectedId']));
+                echo $this->displayCharacterStats($_SESSION['characterSelectedId']);
+            } ?>
+        </div>
+        <div id="opponent-stats">
+            <?php
+            if (isset($_SESSION['opponentSelectedId'])) {
+                echo $this->displayCharacterStats($_SESSION['opponentSelectedId']);
+            } ?>
+        </div>
+
     </div>
+    <?php if (isset($_SESSION['characterSelectedId']) && !isset($_SESSION['opponentSelectedId'])) : ?>
+        <div id="choose-opponent">
+            <form action="index.php?controller=game" method="post">
+                <label for="opponent-name">Choix de l'adversaire</label>
+                <select name="opponent-select">
+                    <option value="">--Choisir un adversaire--</option>
+                    <?php foreach ($myopponents as $myopponent) : ?>
+                        <option id="name" value="<?php echo $myopponent['name'] ?>"><?php echo $myopponent['name'] ?></option>
+                    <?php endforeach; ?>
+                </select> </br>
+                <input type="submit" value="Valider">
+            </form>
+        </div>
+    <?php endif; ?>
+    <?php if ((isset($_SESSION['characterSelectedId'])) && isset($_SESSION['opponentSelectedId'])) : ?>
+        <a href="index.php?controller=fight">Lancer le combat</a>
+    <?php endif; ?>
 </body>
 
 </html>

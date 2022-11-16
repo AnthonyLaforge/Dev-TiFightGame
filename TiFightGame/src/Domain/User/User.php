@@ -1,6 +1,5 @@
 <?php
-require_once('C:\laragon\www\TiFightGame\src\Domain\User\User.php');
-require_once('/laragon/www/TiFightGame/src/model.php');
+require_once('./src/DataBase.php');
 class User
 {
     public $id_user;
@@ -8,14 +7,11 @@ class User
     public $mail;
     public $password;
 
-    public function __construct()
-    {
-        dbConnect();
-    }
     public function isMailExist($mail)
     {
+        $db = DataBase::getInstance();
         $sqlQuery = 'SELECT * FROM `users` WHERE mail = :mail';
-        $mailStatement = dbConnect()->prepare($sqlQuery);
+        $mailStatement = $db->prepare($sqlQuery);
         $mailStatement->execute(
             [
                 'mail' => $mail
@@ -27,8 +23,9 @@ class User
 
     public function isNameExist($name)
     {
+        $db = DataBase::getInstance();
         $sqlQuery = 'SELECT * FROM `users` WHERE name = :name';
-        $nameStatement = dbConnect()->prepare($sqlQuery);
+        $nameStatement = $db->prepare($sqlQuery);
         $nameStatement->execute(
             [
                 'name' => $name
@@ -40,28 +37,25 @@ class User
 
     public function register($name, $mail, $password)
     {
-        if ((!self::isNameExist($name)) && (!self::isMailExist($mail))) {
 
-            $sqlQuery = 'INSERT INTO users(name, mail, password) VALUES (:name, :mail, :password)';
-            $user = dbConnect()->prepare($sqlQuery);
-            $user->execute(
-                [
-                    'name' => $name,
-                    'mail' => $mail,
-                    'password' => $password,
-                ]
-            );
-        } else {
-            header("Location:/views/connexion.php?register&error=name");
-            die();
-        }
+        $db = DataBase::getInstance();
+        $sqlQuery = 'INSERT INTO users(name, mail, password) VALUES (:name, :mail, :password)';
+        $user = $db->prepare($sqlQuery);
+        $user->execute(
+            [
+                'name' => $name,
+                'mail' => $mail,
+                'password' => $password,
+            ]
+        );
     }
 
 
     public function login($name, $password)
     {
+        $db = DataBase::getInstance();
         $sqlQuery = 'SELECT * FROM `users` WHERE name =:name AND password = :password';
-        $usersStatement = dbConnect()->prepare($sqlQuery);
+        $usersStatement = $db->prepare($sqlQuery);
         $usersStatement->execute(
             [
                 'name' => $name,
@@ -78,7 +72,8 @@ class User
     }
     public function logout()
     {
-        unset($_SESSION["user"]);
+        // unset($_SESSION["user"]);
+        session_destroy();
         header("Location: /index.php");
         die();
     }
@@ -90,8 +85,9 @@ class User
 
     public function getInformations()
     {
+        $db = DataBase::getInstance();
         $sqlQuery = 'SELECT * FROM `users` WHERE id_user = ' . $_SESSION['user']['id_user'] . '';
-        $informationStatement = dbConnect()->prepare($sqlQuery);
+        $informationStatement = $db->prepare($sqlQuery);
         $informationStatement->execute();
         $user = $informationStatement->fetch(PDO::FETCH_ASSOC);
         if (!empty($user)) {
@@ -102,8 +98,9 @@ class User
     }
     public function getCharacter()
     {
-        $sqlQuery = 'SELECT name, classe, weapon FROM `characters` WHERE id_user =:id_user';
-        $characterinformation = dbConnect()->prepare($sqlQuery);
+        $db = DataBase::getInstance();
+        $sqlQuery = 'SELECT name, classe, weapon, shield FROM `characters` WHERE id_user =:id_user';
+        $characterinformation = $db->prepare($sqlQuery);
         $characterinformation->execute(
             [
                 'id_user' => $_SESSION['user']['id_user'],
@@ -112,6 +109,24 @@ class User
         $character = $characterinformation->fetchALL(PDO::FETCH_ASSOC);
         if (!empty($character)) {
             return $character;
+        } else {
+            return [];
+        }
+    }
+
+    public function getAllCharacters()
+    {
+        $db = DataBase::getInstance();
+        $sqlQuery = 'SELECT id_user, name_user, name, classe, weapon, shield FROM `characters` WHERE id_user = :id_user';
+        $charactersinformations = $db->prepare($sqlQuery);
+        $charactersinformations->execute(
+            [
+                'id_user' => !$_SESSION['user']['id_user'],
+            ]
+        );
+        $allCharactersDB = $charactersinformations->fetchALL(PDO::FETCH_ASSOC);
+        if (!empty($allCharactersDB)) {
+            return $allCharactersDB;
         } else {
             return [];
         }

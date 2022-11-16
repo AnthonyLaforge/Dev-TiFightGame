@@ -1,6 +1,5 @@
 <?php
-require_once('Classes.php');
-
+require_once('/laragon/www/TiFightGame/src/Domain/Classes/Classes.php');
 class Striker extends Classes
 {
     public function __construct(string $name, $weapon = null)
@@ -12,5 +11,6 @@ class Striker extends Classes
         } else {
             $this->weapon = $weapon;
         }
+        $this->class = 'Percuteur';
     }
 }
