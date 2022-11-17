@@ -18,6 +18,17 @@ class FightPage extends Controller
     if (isset($_SESSION['characterSelectedId']) && isset($_SESSION['opponentSelectedId'])) {
       $this->fight->setPlayer();
       $this->fight->setOpponent();
+      if (!isset($_SESSION['round'])) {
+        $_SESSION['round'] = 0;
+      }
+      // if (($_SESSION['round'] == $this->fight->maxRound)) {
+      //   header("Location: index.php");
+      // }
+    } else {
+      header("Location: index.php");
+    }
+    if ($_SESSION['round'] > ($this->fight->maxRound)) {
+      header("Location: index.php");
     }
     include('views/' . $this->view);
   }

@@ -47,16 +47,16 @@
 
 
 
-    <?php if (isset($_SESSION['characterCreation-classe']) && (!isset($_SESSION['characterCreation-weapon']) && ($_SESSION['characterCreation-classe'] != 'Knight'))) : ?>
+    <?php if (isset($_SESSION['characterCreation-classe']) && (!isset($_SESSION['characterCreation-weapon']) && ($_SESSION['characterCreation-classe'] != 'Chevalier'))) : ?>
         <form action="index.php?controller=createcharacter" method="post">
             <label for="weapon-select">Arme du personnage</label>
             <select name="weapon-select">
-                <option value="">--Choisir une arme--</option>
+                <option value="Aucune">--Choisir une arme--</option>
                 <option value="Aucune">Aucune</option>
-                <?php if (isset($_SESSION['characterCreation-classe']) && ($_SESSION['characterCreation-classe'] != 'Wizard')) : ?>
+                <?php if (isset($_SESSION['characterCreation-classe']) && ($_SESSION['characterCreation-classe'] != 'Sorcier')) : ?>
                     <option value="Épée">Épée</option>
                 <?php endif ?>
-                <?php if (isset($_SESSION['characterCreation-classe']) && ($_SESSION['characterCreation-classe'] == 'Wizard')) : ?>
+                <?php if (isset($_SESSION['characterCreation-classe']) && ($_SESSION['characterCreation-classe'] == 'Sorcier')) : ?>
                     <option value="Baguette Magique">Baguette Magique</option>
                 <?php endif ?>
             </select>
@@ -65,23 +65,23 @@
     <?php endif ?>
 
 
-    <?php if (isset($_SESSION['characterCreation-classe']) && (!isset($_SESSION['characterCreation-weapon']) && ($_SESSION['characterCreation-classe'] == 'Knight'))) : ?>
+    <?php if (isset($_SESSION['characterCreation-classe']) && (!isset($_SESSION['characterCreation-weapon']) && ($_SESSION['characterCreation-classe'] == 'Chevalier'))) : ?>
         <form action="index.php?controller=createcharacter" method="post">
             <label for="weapon-select">Arme du personnage</label>
             <select name="weapon-select">
-                <option value="">--Choisir une arme--</option>
+                <option value="Aucune">--Choisir une arme--</option>
                 <option value="Aucune">Aucune</option>
-                <?php if (isset($_SESSION['characterCreation-classe']) && ($_SESSION['characterCreation-classe'] != 'Wizard')) : ?>
+                <?php if (isset($_SESSION['characterCreation-classe']) && ($_SESSION['characterCreation-classe'] != 'Sorcier')) : ?>
                     <option value="Épée">Épée</option>
                 <?php endif ?>
-                <?php if (isset($_SESSION['characterCreation-classe']) && ($_SESSION['characterCreation-classe'] == 'Wizard')) : ?>
+                <?php if (isset($_SESSION['characterCreation-classe']) && ($_SESSION['characterCreation-classe'] == 'Sorcier')) : ?>
                     <option value="Baguette Magique">Baguette Magique</option>
                 <?php endif ?>
             </select></br>
             <label for="shield-select">Bouclier de votre chevalier</label>
             <select name="shield-select">
-                <option value="">--Choisir un bouclier--</option>
-                <option value="Bouclier en bois">Bouclier en bois</option>
+                <option value="Aucun">--Choisir un bouclier--</option>
+                <option value="Bouclier en bois" require>Bouclier en bois</option>
             </select>
             <input type="submit" value="Suivant">
         </form></br>
@@ -90,7 +90,7 @@
     <?php if (isset($_SESSION['characterCreation-weapon']) && (!isset($_SESSION['characterCreation-name'])) && (isset($_SESSION['characterCreation-classe']))) : ?>
         <form action="index.php?controller=createcharacter" method="post">
             <label for="character-name">Nom du personnage</label>
-            <input type="text" name="character-name" id="character-name">
+            <input type="text" name="character-name" id="character-name" required>
             <input type="submit" value="Créer mon personnage">
         </form>
     <?php endif; ?>

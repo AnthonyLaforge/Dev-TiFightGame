@@ -1,0 +1,54 @@
+body {
+  background: linear-gradient(45deg, rgb(253, 61, 3) 0%, rgb(240, 102, 11) 50%, rgb(255, 217, 0) 100%) no-repeat;
+  height: 921px;
+}
+
+#choose-character {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  font-size: 1.5em;
+}
+#choose-character form{
+  text-align: center;
+}
+
+#choose-opponent {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  font-size: 1.5em;
+}
+#choose-opponent form{
+  text-align: center;
+}
+
+#character-stats {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  font-size: 1.5em;
+
+}
+
+#player-stats {
+  margin: 50px;
+  text-align: center;
+}
+
+#opponent-stats {
+  margin: 50px;
+  text-align: center;
+}
+
+#launch-game {
+  text-align: center;
+  font-size: 3em;
+  font-style: italic;
+
+}
+
+#launch-game a {
+  text-decoration: none;
+  color: green;
+}

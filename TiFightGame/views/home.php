@@ -12,7 +12,7 @@
 
 </head>
 
-<body>
+<body> 
     <div id="title">
         <img src="/img/tifightgame.png" alt="Logo" size="10px">
     </div>

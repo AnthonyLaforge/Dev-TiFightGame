@@ -115,7 +115,7 @@ class GamePage extends Controller
         if (!empty($myopponents)) {
             return $myopponents;
         } else {
-            throw new Exception("Une erreur s'est produite lors de la sélection de votre adversaire");
+            throw new Exception("Une erreur s'est produite lors du chargement de vos potentiels adversaires");
         }
     }
 
@@ -133,7 +133,6 @@ class GamePage extends Controller
         $opponentselected = $opponent->fetch(PDO::FETCH_ASSOC);
         if (!empty($opponentselected)) {
             return $opponentselected;
-            echo 'coucouuu';
         } else {
             throw new Exception("Une erreur s'est produite lors de la sélection de votre adversaire");
         }
@@ -163,7 +162,7 @@ class GamePage extends Controller
         echo "Vitesse d'attaque: " . $charactersStats->getPlayerAttackSpeed() . "</br>";
         echo "Points de vie: " . $charactersStats->getHealth() . "</br>";
         echo "Points d'armure: " . $charactersStats->getArmor() . "</br>";
-        echo "Points de mana: " . $charactersStats->getMana() . "</br>";
+        echo "Points de mana: " . $charactersStats->getMana() . "</br></br>";
     }
 }
 

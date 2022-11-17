@@ -11,6 +11,9 @@ class HomePage extends Controller
         if (isset($_SESSION['characterSelectedId']) || isset($_SESSION['opponentSelectedId'])) {
             Classes::unloadClasse();
         }
+        if (isset($_SESSION['round']) || isset($_SESSION['player1']) || isset($_SESSION['player2'])) {
+            Fight::unloadFight();
+        }
 
         $user = new User;
         if ($user->isConnected()) {

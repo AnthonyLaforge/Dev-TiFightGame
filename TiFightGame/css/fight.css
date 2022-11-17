@@ -1,0 +1,37 @@
+body {
+  background: linear-gradient(45deg, rgb(253, 61, 3) 0%, rgb(240, 102, 11) 50%, rgb(255, 217, 0) 100%) no-repeat;
+
+}
+
+#fight {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  font-size: 1.6em;
+}
+
+#options {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+#continue-fight {
+  padding: 20px;
+  margin: 20px;
+}
+
+#giveup-fight {
+  padding: 20px;
+  margin: 20px;
+}
+
+#end{
+  font-size: 2em;
+}
+#end a{
+  color: black;
+}
+#logo {
+  margin-top: 467px;
+}
