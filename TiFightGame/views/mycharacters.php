@@ -18,9 +18,12 @@
         <span class="error"> <?php echo $error->getMessage(); ?></span>
     <?php endif ?>
     <div id="mycharacters">
-        <?php echo $this->displayMyCharacters();?>
+        <?php echo $this->displayMyCharacters(); ?>
     </div>
     <a href="index.php?controller=createcharacter">Créer un nouveau personnage</a>
+    <?php if (!isset($error)) : ?>
+        <a href="index.php?controller=deletecharacter">Supprimer un personnage</a>
+    <?php endif; ?>
 </body>
 
 </html>

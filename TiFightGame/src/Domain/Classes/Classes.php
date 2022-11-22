@@ -19,14 +19,6 @@ class Classes
         $this->weapon = new Weapon;
         $this->shield = new Shield;
     }
-    public static function load($character_id)
-    {
-        // go chercher quelle classe/weapon/bouclier en base
-
-        // si ta classse = Knight ==> new knight
-
-        // return $classe
-    }
 
     public function attack($enemy)
     {
@@ -158,7 +150,7 @@ class Classes
         if (isset($this->weapon)) {
             return $this->weapon->getWeaponName();
         } else {
-           return $this->weaponName = "Aucune";
+            return $this->weaponName = "Aucune";
         }
     }
     public function getShieldName()
@@ -167,7 +159,7 @@ class Classes
             return $this->shield->getShieldName();
         } else {
             return $this->shieldName = "Aucun";
-         }
+        }
     }
 
     public function getSelectedCharacter($idCharacter)
@@ -187,7 +179,7 @@ class Classes
             return [];
         }
     }
-    public function loadWeapon($idCharacter)
+    public function getWeapon($idCharacter)
     {
         $character = $this->getSelectedCharacter($idCharacter);
         if ($character['weapon'] == 'Épée') {
@@ -200,7 +192,7 @@ class Classes
             throw new Exception("Une erreur est survenue lors du chargement de votre arme");
         }
     }
-    public function loadShield($idCharacter)
+    public function getShield($idCharacter)
     {
         $character = $this->getSelectedCharacter($idCharacter);
         if ($character['shield'] != "null") {
@@ -209,21 +201,21 @@ class Classes
         }
     }
 
-    public function loadClasse($idCharacter)
+    public function getClasse($idCharacter)
     {
         $character = $this->getSelectedCharacter($idCharacter);
         if ($character['weapon'] != "Aucune") {
             if ($character['classe'] == 'Combattant') {
-                $characterClasse = new Warrior($character['name'], $this->loadWeapon($idCharacter));
+                $characterClasse = new Warrior($character['name'], $this->getWeapon($idCharacter));
                 return $characterClasse;
             } elseif ($character['classe'] == 'Sorcier') {
-                $characterClasse = new Wizard($character['name'], $this->loadWeapon($idCharacter));
+                $characterClasse = new Wizard($character['name'], $this->getWeapon($idCharacter));
                 return $characterClasse;
             } elseif ($character['classe'] == 'Chevalier') {
-                $characterClasse = new Knight($character['name'], $this->loadWeapon($idCharacter), $this->loadShield($idCharacter));
+                $characterClasse = new Knight($character['name'], $this->getWeapon($idCharacter), $this->getShield($idCharacter));
                 return $characterClasse;
             } elseif ($character['classe'] == 'Percuteur') {
-                $characterClasse = new Striker($character['name'], $this->loadWeapon($idCharacter));
+                $characterClasse = new Striker($character['name'], $this->getWeapon($idCharacter));
                 return $characterClasse;
             }
         }
@@ -243,7 +235,25 @@ class Classes
             }
         }
     }
-    public static function unloadClasse()
+
+    public function getIdUserCharacter($characterName)
+    {
+        $db = DataBase::getInstance();
+        $sqlQuery = 'SELECT id_user, id_character  FROM `characters` WHERE name = :name';
+        $characterId = $db->prepare($sqlQuery);
+        $characterId->execute(
+            [
+                'name' => $characterName,
+            ]
+        );
+        $IdUserCharacter = $characterId->fetch(PDO::FETCH_ASSOC);
+        if (!empty($IdUserCharacter)) {
+            return $IdUserCharacter;
+        } else {
+            return [];
+        }
+    }
+    public static function unLoadClasse()
     {
         unset($_SESSION['characterSelectedId']);
         unset($_SESSION['opponentSelectedId']);

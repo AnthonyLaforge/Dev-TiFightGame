@@ -57,7 +57,7 @@
                     <option value="Épée">Épée</option>
                 <?php endif ?>
                 <?php if (isset($_SESSION['characterCreation-classe']) && ($_SESSION['characterCreation-classe'] == 'Sorcier')) : ?>
-                    <option value="Baguette Magique">Baguette Magique</option>
+                    <option value="Baguette basique">Baguette basique</option>
                 <?php endif ?>
             </select>
             <input type="submit" value="Suivant">
@@ -75,7 +75,7 @@
                     <option value="Épée">Épée</option>
                 <?php endif ?>
                 <?php if (isset($_SESSION['characterCreation-classe']) && ($_SESSION['characterCreation-classe'] == 'Sorcier')) : ?>
-                    <option value="Baguette Magique">Baguette Magique</option>
+                    <option value="Baguette basique">Baguette basique</option>
                 <?php endif ?>
             </select></br>
             <label for="shield-select">Bouclier de votre chevalier</label>

@@ -12,7 +12,7 @@
 
 </head>
 
-<body> 
+<body>
     <div id="title">
         <img src="/img/tifightgame.png" alt="Logo" size="10px">
     </div>
@@ -22,6 +22,10 @@
         <?php endif; ?>
         <?php if ($user->isConnected()) : ?>
             Bonjour <?php echo $userInformation['name']; ?>
+            <br>Parties : <br>
+            Jouées:<?php echo $userGames['games_played']?>  
+            Gagnées:<?php echo $userGames['games_won'] ?>  
+            Perdues:<?php echo $userGames['games_lost'] ?>  
             <a href="index.php?controller=connexion&disconnect">Se déconnecter</a>
             <a href="index.php?controller=mycharacters">Mes personnages</a>
     </div>

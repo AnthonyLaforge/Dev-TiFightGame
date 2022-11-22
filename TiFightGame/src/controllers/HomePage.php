@@ -18,6 +18,7 @@ class HomePage extends Controller
         $user = new User;
         if ($user->isConnected()) {
             $userInformation = $user->getInformations();
+            $userGames = User::getGamesAmount($userInformation['id_user']);
         };
         include('views/' . $this->view);
     }

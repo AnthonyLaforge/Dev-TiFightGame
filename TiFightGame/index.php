@@ -36,6 +36,7 @@ require_once('src/controllers/HomePage.php');
 require_once('src/controllers/ConnexionPage.php');
 require_once('src/controllers/MyCharactersPage.php');
 require_once('src/controllers/CreateCharacterPage.php');
+require_once('src/controllers/DeleteCharacterPage.php');
 require_once('src/controllers/GamePage.php');
 require_once('src/controllers/FightPage.php');
 
@@ -59,6 +60,9 @@ switch ($page) {
     break;
   case 'createcharacter':
     $controller = new CreateCharacterPage();
+    break;
+  case 'deletecharacter':
+    $controller = new DeleteCharacterPage();
     break;
   case 'game':
     $controller = new GamePage();

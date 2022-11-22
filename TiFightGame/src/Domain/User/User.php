@@ -50,6 +50,20 @@ class User
         );
     }
 
+    public function isCharacterNameExist($characterName)
+    {
+        $db = DataBase::getInstance();
+        $sqlQuery = 'SELECT * FROM `characters` WHERE name = :name';
+        $characterNameStatement = $db->prepare($sqlQuery);
+        $characterNameStatement->execute(
+            [
+                'name' => $characterName
+            ]
+        );
+        $characterNameExist = $characterNameStatement->fetch(PDO::FETCH_ASSOC);
+        return !empty($characterNameExist);
+    }
+
 
     public function login($name, $password)
     {
@@ -130,5 +144,65 @@ class User
         } else {
             return [];
         }
+    }
+
+    public static function getGamesAmount($id_user)
+    {
+        $db = DataBase::getInstance();
+        $sqlQuery = 'SELECT games_played, games_won, games_lost FROM `users` WHERE id_user = :id_user';
+        $userGames = $db->prepare($sqlQuery);
+        $userGames->execute(
+            [
+                'id_user' => $id_user,
+            ]
+        );
+        $userGamesPlayed = $userGames->fetch();
+        if (empty($userGamesPlayed)) {
+            throw new Exception("Une erreur c'est produite en mettant à jour votre nombre de game. Contactez un administrateur");
+        } else {
+            return $userGamesPlayed;
+        }
+    }
+
+    public static function addGamePlayed($id_user)
+    {
+        $db = DataBase::getInstance();
+        $userGamesPlayed = user::getGamesAmount($id_user);
+        $sqlQuery = 'UPDATE `users` SET `games_played`=:games_played WHERE id_user =:id_user';
+        $games = $db->prepare($sqlQuery);
+        $games->execute(
+            [
+                'games_played' => $userGamesPlayed['games_played'] + 1,
+                'id_user' => $id_user
+            ]
+        );
+    }
+
+    public static function addGameWon($id_user)
+    {
+        $db = DataBase::getInstance();
+        $userGamesWon = user::getGamesAmount($id_user);
+        $sqlQuery = 'UPDATE `users` SET `games_won`=:games_won WHERE id_user =:id_user';
+        $games = $db->prepare($sqlQuery);
+        $games->execute(
+            [
+                'games_won' => $userGamesWon['games_won'] + 1,
+                'id_user' => $id_user
+            ]
+        );
+    }
+
+    public static function addGameLost($id_user)
+    {
+        $db = DataBase::getInstance();
+        $userGamesLost = user::getGamesAmount($id_user);
+        $sqlQuery = 'UPDATE `users` SET `games_lost`=:games_lost WHERE id_user =:id_user';
+        $games = $db->prepare($sqlQuery);
+        $games->execute(
+            [
+                'games_lost' => $userGamesLost['games_lost'] + 1,
+                'id_user' => $id_user
+            ]
+        );
     }
 }

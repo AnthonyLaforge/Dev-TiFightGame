@@ -7,10 +7,12 @@ class FightPage extends Controller
 
   protected string $view = "fight.php";
   protected Fight $fight;
+  protected User $user;
 
   public function __construct()
   {
     $this->fight = new Fight();
+    $this->user = new User();
   }
 
   public function render()
@@ -21,9 +23,6 @@ class FightPage extends Controller
       if (!isset($_SESSION['round'])) {
         $_SESSION['round'] = 0;
       }
-      // if (($_SESSION['round'] == $this->fight->maxRound)) {
-      //   header("Location: index.php");
-      // }
     } else {
       header("Location: index.php");
     }

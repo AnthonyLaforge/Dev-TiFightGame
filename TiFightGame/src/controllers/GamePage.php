@@ -68,6 +68,8 @@ class GamePage extends Controller
                 $opponentCharacter = $this->getCharacterStats($_SESSION['opponentSelectedId']);
             }
         } catch (Exception $error) {
+            $myopponents = $this->getMyOpponent();
+            $mycharacters = $this->getMyCharacter();
         };
         include('views/' . $this->view);
     }
@@ -123,32 +125,26 @@ class GamePage extends Controller
     public function setMyOpponent()
     {
         $db = DataBase::getInstance();
-        $sqlQuery = 'SELECT id_character, id_user, name_user, name, classe, weapon, shield FROM characters WHERE name =:name';
+        $sqlQuery = 'SELECT id_character, id_user, name_user, name, classe, weapon, shield FROM characters WHERE name =:name AND id_user !=:id_user';
         $opponent = $db->prepare($sqlQuery);
         $opponent->execute(
             [
                 'name' =>  $_POST['opponent-select'],
+                'id_user' => $_SESSION['user']['id_user'],
             ]
         );
         $opponentselected = $opponent->fetch(PDO::FETCH_ASSOC);
         if (!empty($opponentselected)) {
             return $opponentselected;
         } else {
+            $myopponents = $this->getMyOpponent();
             throw new Exception("Une erreur s'est produite lors de la sélection de votre adversaire");
         }
     }
     public function getCharacterStats($id)
     {
-        $character = $this->character->loadClasse($id);
+        $character = $this->character->getClasse($id);
         return $character;
-        //$character_id;
-
-        /*$class = Classes::load($character_id);
-    
-        $class->getPlayerDamage();
-        $class->getweapon()->getname();*/
-
-        // $_SESSION['characterSelectedId'];
     }
     public function displayCharacterStats($id)
     {
@@ -166,96 +162,3 @@ class GamePage extends Controller
     }
 }
 
-  
-
-
-
-// function getCharacterStats()
-// {
-//     //$character_id;
-
-//     /*$class = Classes::load($character_id);
-
-//     $class->getPlayerDamage();
-//     $class->getweapon()->getname();*/
-
-
-//     var_dump($_SESSION['user']['character-use-stats']);
-//     echo "Nom: " . $_SESSION['user']['character-use']['name'] . "</br>";
-//     echo "Classe: " . $_SESSION['user']['character-use']['classe'] . "</br>";
-//     echo "Arme: " . $_SESSION['user']['character-use']['weapon'] . "</br>";
-//     echo "Dégats: " . $_SESSION['user']['character-use-stats']->getPlayerDamage() . "</br>";
-//     echo "Vitesse d'attaque: " . $_SESSION['user']['character-use-stats']->getPlayerAttackSpeed() . "</br>";
-//     echo "Points de vie: " . $_SESSION['user']['character-use-stats']->getHealth() . "</br>";
-//     echo "Points d'armure: " . $_SESSION['user']['character-use-stats']->getArmor() . "</br>";
-//     echo "Points de mana: " . $_SESSION['user']['character-use-stats']->getMana() . "</br>";
-// }
-
-// #SELECTION DU PERSONNAGE ADVERSAIRE
-// if (isset($_SESSION['user']['character-use']) && (isset($_GET['fight'])) && (isset($_POST["opponent-select"]))) {
-//     if ($_POST["opponent-select"] == "") {
-//         echo "L'adversaire n'existe pas/plus";
-//     } else {
-//         $sqlQuery = 'SELECT id_user, name_user, name, classe, weapon, shield FROM characters WHERE name =:name';
-//         $opponent = dbConnect()->prepare($sqlQuery);
-//         $opponent->execute(
-//             [
-//                 'name' =>  $_POST['opponent-select'],
-//             ]
-//         );
-//         $opponentselected = $opponent->fetch(PDO::FETCH_ASSOC);
-//         $_SESSION['opponent-selected'] = $opponentselected;
-
-//         #OPPONENT 
-//         if ($_SESSION['opponent-selected']['shield'] == 'null' && ($_SESSION['opponent-selected']['weapon'] == 'Aucune')) {
-//             $opponent = new $_SESSION['opponent-selected']['classe']($_SESSION['opponent-selected']['name']);
-//         } elseif ($_SESSION['opponent-selected']['shield'] == 'null' && ($_SESSION['opponent-selected']['weapon'] != 'Aucune')) {
-//             $opponentWeapon = new $_SESSION['opponent-selected']['weapon']();
-//             $opponent = new $_SESSION['opponent-selected']['classe']($_SESSION['opponent-selected']['name'], $opponentWeapon);
-//         } elseif ($_SESSION['opponent-selected']['shield'] != 'null' && ($_SESSION['opponent-selected']['weapon'] != 'Aucune')) {
-//             $opponentWeapon = new $_SESSION['opponent-selected']['weapon']();
-//             $opponentShield = new $_SESSION['opponent-selected']['shield']();
-//             $opponent = new $_SESSION['opponent-selected']['classe']($_SESSION['opponent-selected']['name'], $opponentWeapon, $opponentShield);
-//         }
-
-//         #PLAYER
-//         if ($_SESSION['user']['character-use']['shield'] == 'null' && ($_SESSION['user']['character-use']['weapon'] == 'Aucune')) {
-//             $player = new $_SESSION['user']['character-use']['classe']($_SESSION['user']['character-use']['name']);
-//         } elseif ($_SESSION['user']['character-use']['shield'] == 'null' && ($_SESSION['user']['character-use']['weapon'] != 'Aucune')) {
-//             $playerWeapon = new $_SESSION['user']['character-use']['weapon']();
-//             $player = new $_SESSION['user']['character-use']['classe']($_SESSION['user']['character-use']['name'], $playerWeapon);
-//         } elseif ($_SESSION['user']['character-use']['shield'] != 'null' && ($_SESSION['user']['character-use']['weapon'] != 'Aucune')) {
-//             $playerWeapon = new $_SESSION['user']['character-use']['weapon']();
-//             $playerShield = new $_SESSION['user']['character-use']['shield']();
-//             $player = new $_SESSION['user']['character-use']['classe']($_SESSION['user']['character-use']['name'], $playerWeapon, $playerShield);
-//         }
-//         $combat = new Fight;
-
-        /*
-        $combat = new Fight();
-        $combat->setCombattant1($classe1);
-        $combat->setCombattant2($classe2);
-
-        $combat->start();
-        */
-//     }
-// }
-
-
-# SELECTION DU PERSONNAGE JOUEUR
-// if ((isset($_POST["character-select"]))) {
-//     $sqlQuery = 'SELECT id_user, name_user, name, classe, weapon, shield FROM characters WHERE id_user =:id_user AND name =:name';
-//     $character = dbConnect()->prepare($sqlQuery);
-//     $character->execute(
-//         [
-//             'id_user' => $_SESSION['user']['id_user'],
-//             'name' =>  $_POST['character-select'],
-//         ]
-//     );
-//     $characterselected = $character->fetch(PDO::FETCH_ASSOC);
-//     $_SESSION['user']['character-use'] = $characterselected;
-//     require('./index.php');
-// } else {
-//     require('./views/game.php');
-//     // require('./index.php');
-// }

@@ -4,15 +4,17 @@ class Fight
 {
     public int $maxRound = 5;
     protected Classes $character;
+    protected User $user;
 
     public function __construct()
     {
         $this->character = new Classes;
+        $this->user = new User;
     }
 
     public function setPlayer()
     {
-        $player = $this->character->loadClasse($_SESSION['characterSelectedId']);
+        $player = $this->character->getClasse($_SESSION['characterSelectedId']);
         return $player;
         // $combat = new Fight();
         //     $combat->setCombattant1($classe1);
@@ -22,7 +24,7 @@ class Fight
     }
     public function setOpponent()
     {
-        $opponent = $this->character->loadClasse($_SESSION['opponentSelectedId']);
+        $opponent = $this->character->getClasse($_SESSION['opponentSelectedId']);
         return $opponent;
     }
     public function startFight($player, $opponent)
@@ -72,11 +74,19 @@ class Fight
         } else {
             if ($_SESSION["player1"] == $this->maxRound) {
                 $finalWinner = $player1;
+                $finalLooser = $player2;
             } else {
                 $finalWinner = $player2;
+                $finalLooser = $player1;
             }
             echo "Combat terminé</br>";
             echo "Vainqueur : " . $finalWinner->getName() . "";
+            $winnerId = $this->character->getIdUserCharacter($finalWinner->getName());
+            $looserId = $this->character->getIdUserCharacter($finalLooser->getName());
+            user::addGamePlayed($winnerId['id_user']);
+            user::addGameWon($winnerId['id_user']);
+            user::addGamePlayed($looserId['id_user']);
+            user::addGameLost($looserId['id_user']);
             $_SESSION['round'] += 1;
         }
         // echo $_SESSION['user']['character-use']['name'] . " a " . ($_SESSION["player1"] ?? 0) . "WIN <br/>";

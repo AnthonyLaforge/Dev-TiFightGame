@@ -6,6 +6,12 @@ if (session_status() === PHP_SESSION_NONE) {
 
 class CreateCharacterPage extends Controller
 {
+    protected User $user;
+
+    public function __construct()
+    {
+        $this->user = new User;
+    }
 
     protected string $view = "createcharacter.php";
 
@@ -55,11 +61,11 @@ class CreateCharacterPage extends Controller
 
     public function setCharacterName()
     {
-        if (isset($_POST['character-name'])) {
+        if (isset($_POST['character-name']) && (!$this->user->isCharacterNameExist($_POST['character-name']))) {
             $_SESSION['characterCreation-name'] = $_POST['character-name'];
             header("Location: index.php?controller=createcharacter");
         } else {
-            throw new Exception("Un problème est survenu en essayant de sélectionner le nom du personnage. <br>Veuillez réessayer.");
+            throw new Exception("Un problème est survenu en essayant de sélectionner le nom du personnage, le nom est déja utilisé. <br>Veuillez réessayer.");
             header("Location: index.php?controller=createcharacter");
         }
     }
@@ -102,62 +108,3 @@ class CreateCharacterPage extends Controller
         );
     }
 }
-// if (isset($_POST['class-select'])) {
-
-//     $_SESSION['characterCreation-classe'] = $_POST['class-select'];
-//     header("Location: /views/createcharacter.php");
-// }
-
-// if (isset($_POST['weapon-select'])) {
-//     if (isset($_POST['shield-select'])) {
-//         $_SESSION['characterCreation-shield'] = $_POST['shield-select'];
-//     }
-
-//     $_SESSION['characterCreation-weapon'] = $_POST['weapon-select'];
-//     header("Location: /views/createcharacter.php");
-// }
-
-
-// if (isset($_SESSION['characterCreation-classe']) && isset($_SESSION['characterCreation-weapon']) && isset($_SESSION['characterCreation-shield']) && isset($_POST['character-name'])) {
-
-//     $_SESSION['characterCreation-name'] = $_POST['character-name'];
-
-
-//     $sqlQuery = 'INSERT INTO characters(id_user, name_user, name, classe, weapon, shield) VALUES (:id_user, :name_user, :name, :classe, :weapon, :shield)';
-//     $user = $db->prepare($sqlQuery);
-//     $user->execute(
-//         [
-//             'id_user' => $_SESSION['user']['id_user'],
-//             'name_user' => $_SESSION['user']['name'],
-//             'name' => $_SESSION['characterCreation-name'],
-//             'classe' => $_SESSION['characterCreation-classe'],
-//             'weapon' => $_SESSION['characterCreation-weapon'],
-//             'shield' => $_SESSION['characterCreation-shield'],
-//         ]
-//     );
-//     unset($_SESSION['characterCreation-name']);
-//     unset($_SESSION['characterCreation-classe']);
-//     unset($_SESSION['characterCreation-weapon']);
-//     unset($_SESSION['characterCreation-shield']);
-//     header("Location: /index.php");
-// } elseif (isset($_SESSION['characterCreation-classe']) && isset($_SESSION['characterCreation-weapon']) && !isset($_SESSION['characterCreation-shield']) && isset($_POST['character-name'])) {
-//     $_SESSION['characterCreation-name'] = $_POST['character-name'];
-
-
-//     $sqlQuery = 'INSERT INTO characters(id_user, name_user, name, classe, weapon, shield) VALUES (:id_user, :name_user, :name, :classe, :weapon, :shield)';
-//     $user = $db->prepare($sqlQuery);
-//     $user->execute(
-//         [
-//             'id_user' => $_SESSION['user']['id_user'],
-//             'name_user' => $_SESSION['user']['name'],
-//             'name' => $_SESSION['characterCreation-name'],
-//             'classe' => $_SESSION['characterCreation-classe'],
-//             'weapon' => $_SESSION['characterCreation-weapon'],
-//             'shield' => 'null',
-//         ]
-//     );
-//     unset($_SESSION['characterCreation-name']);
-//     unset($_SESSION['characterCreation-classe']);
-//     unset($_SESSION['characterCreation-weapon']);
-//     header("Location: /index.php");
-// }
