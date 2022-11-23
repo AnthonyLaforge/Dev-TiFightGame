@@ -14,6 +14,7 @@
 
 <body>
   <div id="fight">
+    <?php var_dump($_SESSION); ?>
     <?php if (isset($_SESSION['characterSelectedId']) && (isset($_SESSION['opponentSelectedId']))) : ?>
       <?php if ($_SESSION['round'] < $this->fight->maxRound) : ?>
         <h1> Round <?php echo $_SESSION['round'] + 1; ?></h1>
@@ -24,7 +25,7 @@
       <?php if ($_SESSION['round'] < ($this->fight->maxRound) && (!isset($this->fight->finalWinner))) : ?>
         <div id="giveup-fight">
           <h2>
-            <a href="/index.php">Abandonner le combat</a>
+            <a href="/index.php?controller=fight&giveup=true">Abandonner le combat</a>
           </h2>
         </div>
       <?php endif; ?>

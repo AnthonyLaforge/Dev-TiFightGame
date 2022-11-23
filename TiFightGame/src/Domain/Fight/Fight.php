@@ -89,10 +89,20 @@ class Fight
             user::addGameLost($looserId['id_user']);
             $_SESSION['round'] += 1;
         }
-        // echo $_SESSION['user']['character-use']['name'] . " a " . ($_SESSION["player1"] ?? 0) . "WIN <br/>";
-        // echo $_SESSION['opponent-selected']['name'] . " a " . ($_SESSION["player2"] ?? 0) . "WIN <br/>";
-        // echo "Test a " . ($_SESSION["test"] ?? 0) . "WIN <br/>";
     }
+
+    public function playerGiveUp($player)
+    {
+        $player = $this->setPlayer();
+        $opponent = $this->setOpponent();
+        $playerID = $this->character->getIdUserCharacter($player->getName());
+        $opponentID = $this->character->getIdUserCharacter($opponent->getName());
+        user::addGamePlayed($opponentID['id_user']);
+        user::addGameWon($opponentID['id_user']);
+        user::addGamePlayed($playerID['id_user']);
+        user::addGameLost($playerID['id_user']);
+    }
+
     public static function unloadFight()
     {
         unset($_SESSION['player1']);
