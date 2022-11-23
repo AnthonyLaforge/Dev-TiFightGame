@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel='stylesheet' type='text/css' href='/css/createcharacter.css'>
     <title>Ti-Fight-Game</title>
 </head>
 
@@ -13,10 +14,7 @@
 
 </body>
 
-<?php if (isset($error)) : ?>
-    <span class="error"> <?php echo $error->getMessage(); ?></span>
-<?php endif ?>
-
+<h1 class="title">Création de mon Personnage</h1>
 <div id="character-resume">
     <?php if (isset($_SESSION['characterCreation-classe'])) : ?>
         <h1> Résumé </h1>
@@ -94,6 +92,9 @@
             <input type="submit" value="Créer mon personnage">
         </form>
     <?php endif; ?>
+    <?php if (isset($error)) : ?>
+        <div class="error"> <?php echo $error->getMessage(); ?></div>
+    <?php endif ?>
 </div>
 
 </html>

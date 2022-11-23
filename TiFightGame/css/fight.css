@@ -21,11 +21,18 @@ body{
 #continue-fight {
   padding: 20px;
   margin: 20px;
+  
+}
+#continue-fight a{
+  color: goldenrod;
 }
 
 #giveup-fight {
   padding: 20px;
   margin: 20px;
+}
+#giveup-fight a{
+  color: goldenrod;
 }
 
 #end{

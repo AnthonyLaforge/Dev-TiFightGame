@@ -14,7 +14,6 @@
 
 <body>
   <div id="fight">
-    <?php var_dump($_SESSION); ?>
     <?php if (isset($_SESSION['characterSelectedId']) && (isset($_SESSION['opponentSelectedId']))) : ?>
       <?php if ($_SESSION['round'] < $this->fight->maxRound) : ?>
         <h1> Round <?php echo $_SESSION['round'] + 1; ?></h1>

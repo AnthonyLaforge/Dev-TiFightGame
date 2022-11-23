@@ -26,7 +26,6 @@
             <a href="index.php?controller=deletecharacter">Supprimer un personnage</a>
         <?php endif; ?>
     </div>
-    <?php var_dump($this->user->getCharacterAmount())?>
 </body>
 
 </html>

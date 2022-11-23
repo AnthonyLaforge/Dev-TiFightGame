@@ -1,0 +1,28 @@
+body {
+  background: url(/img/background-createcharacter.jpg) rgba(253, 61, 3, 0.562) no-repeat;
+    background-size: cover;
+    background-blend-mode: darken;
+}
+
+.error{
+  color:rgb(255, 255, 255);
+  text-align: center;
+  font-size: 2em;
+}
+
+h1.title{
+  text-align: center;
+  color: white;
+  font-size: 4em;
+  text-decoration: underline;
+}
+#character-resume{
+  text-align: center;
+  color: white;
+  font-size: 2em;
+}
+
+#character-creation{
+  text-align: center;
+  color: white;
+}

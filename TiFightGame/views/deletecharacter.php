@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel='stylesheet' type='text/css' href='/css/deletecharacter.css'>
   <title>Ti-Fight-Game</title>
 </head>
 
@@ -21,15 +22,17 @@
     </select> </br>
     <input type="submit" value="Valider">
   </form>
-  <?php var_dump($mycharacters) ?>
   <?php if (isset($_SESSION['characterSelectedId'])) : ?>
-    <h1>Personne à supprimer</h1>
-    <?php echo $this->character->displayCharacterStats($_SESSION['characterSelectedId']); ?>
+    <div id="selected-character">
+      <h1 class="title">Personnage à supprimer</h1>
+      <?php echo $this->character->displayCharacterStats($_SESSION['characterSelectedId']); ?>
+    </div>
     <form action="index.php?controller=deletecharacter" method="post">
       <label for="deletecharacter">Êtes-vous sur de vouloir supprimer ce personnage ?</br></label>
       <input type="submit" name="deletecharacter" id="deletecharacter" value="Oui">
       <input type="submit" name="keepcharacter" id="keepcharacter" value="Non">
     </form>
+
   <?php endif; ?>
 </body>
 

@@ -22,12 +22,15 @@
         <?php endif; ?>
         <?php if ($user->isConnected()) : ?>
             Bonjour <?php echo $userInformation['name']; ?>
-            <br>Parties : <br>
-            Jouées:<?php echo $userGames['games_played']?>  
-            Gagnées:<?php echo $userGames['games_won'] ?>  
-            Perdues:<?php echo $userGames['games_lost'] ?>  
-            <a href="index.php?controller=connexion&disconnect">Se déconnecter</a>
+            <div id="games-stats">
+                <h3>Statistiques Parties</h3>
+                Jouées➤<?php echo $userGames['games_played'] ?><br>
+                Gagnées➤<?php echo $userGames['games_won'] ?><br>
+                Perdues➤<?php echo $userGames['games_lost'] ?><br><br>
+            </div>
             <a href="index.php?controller=mycharacters">Mes personnages</a>
+            <a href="index.php?controller=connexion&disconnect">Se déconnecter</a>
+
     </div>
     <div id="launchgame">
         <h1><a href="index.php?controller=game">Jouer</a></h1>
