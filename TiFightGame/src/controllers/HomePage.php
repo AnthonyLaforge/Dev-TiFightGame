@@ -1,5 +1,4 @@
 <?php
-require_once 'Controller.php';
 
 class HomePage extends Controller
 {

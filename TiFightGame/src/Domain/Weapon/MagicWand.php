@@ -1,5 +1,4 @@
 <?php
-require_once('Weapon.php');
 class MagicWand extends Weapon
 {
     public function __construct()

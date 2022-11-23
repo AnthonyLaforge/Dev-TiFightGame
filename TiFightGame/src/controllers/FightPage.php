@@ -1,7 +1,4 @@
 <?php
-require_once 'Controller.php';
-require_once('./src/Domain/Fight/Fight.php');
-
 class FightPage extends Controller
 {
 

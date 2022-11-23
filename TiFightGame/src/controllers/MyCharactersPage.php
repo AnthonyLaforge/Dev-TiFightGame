@@ -1,6 +1,4 @@
 <?php
-require_once 'Controller.php';
-// require_once('/laragon/www/TiFightGame/src/Domain/User/User.php');
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }

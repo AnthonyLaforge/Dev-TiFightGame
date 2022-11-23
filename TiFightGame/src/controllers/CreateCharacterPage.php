@@ -1,5 +1,4 @@
 <?php
-require_once 'Controller.php';
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }

@@ -1,5 +1,5 @@
 <?php
-require_once('Weapon.php');
+
 class Sword extends Weapon
 {
 

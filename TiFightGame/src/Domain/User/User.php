@@ -1,5 +1,4 @@
 <?php
-require_once('./src/DataBase.php');
 class User
 {
     public $id_user;

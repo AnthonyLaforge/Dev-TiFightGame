@@ -1,5 +1,4 @@
 <?php
-require_once('./src/Domain/Classes/Classes.php');
 class Fight
 {
     public int $maxRound = 5;

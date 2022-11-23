@@ -1,5 +1,4 @@
 <?php
-require_once('Shield.php');
 class BasicShield extends Shield
 {
 

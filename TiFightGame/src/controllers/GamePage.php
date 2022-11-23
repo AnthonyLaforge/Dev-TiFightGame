@@ -13,17 +13,6 @@
         include_once $base_path . "Weapon/" . $class . ".php";
     }
 });*/
-require_once('./src/Domain/Weapon/Sword.php');
-require_once('./src/Domain/Shield/BasicShield.php');
-require_once('./src/Domain/Weapon/MagicWand.php');
-require_once('./src/Domain/Classes/Warrior.php');
-require_once('./src/Domain/Classes/Knight.php');
-require_once('./src/Domain/Classes/Wizard.php');
-require_once('./src/Domain/Classes/Striker.php');
-require_once('./src/Domain/User/User.php');
-require_once('./src/DataBase.php');
-require_once 'Controller.php';
-
 
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
