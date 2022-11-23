@@ -13,17 +13,20 @@
 
 <body>
     <a href="index.php">Retour</a>
-    <h1>Mes personnages</h1>
+    <h1 class="title">Mes personnages</h1>
     <?php if (isset($error)) : ?>
         <span class="error"> <?php echo $error->getMessage(); ?></span>
     <?php endif ?>
     <div id="mycharacters">
         <?php echo $this->displayMyCharacters(); ?>
     </div>
-    <a href="index.php?controller=createcharacter">Créer un nouveau personnage</a>
-    <?php if (!isset($error)) : ?>
-        <a href="index.php?controller=deletecharacter">Supprimer un personnage</a>
-    <?php endif; ?>
+    <div id="characters-option">
+        <a href="index.php?controller=createcharacter">Créer un nouveau personnage</a>
+        <?php if (!isset($error)) : ?>
+            <a href="index.php?controller=deletecharacter">Supprimer un personnage</a>
+        <?php endif; ?>
+    </div>
+    <?php var_dump($this->user->getCharacterAmount())?>
 </body>
 
 </html>

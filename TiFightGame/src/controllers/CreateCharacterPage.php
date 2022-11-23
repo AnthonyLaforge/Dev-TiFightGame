@@ -5,6 +5,7 @@ if (session_status() === PHP_SESSION_NONE) {
 
 class CreateCharacterPage extends Controller
 {
+    protected $maxCharacters = 5;
     protected User $user;
 
     public function __construct()
@@ -71,21 +72,27 @@ class CreateCharacterPage extends Controller
 
     public function createMyCharacter()
     {
-        if (isset($_SESSION['characterCreation-classe']) && isset($_SESSION['characterCreation-weapon']) && isset($_SESSION['characterCreation-shield']) && isset($_SESSION['characterCreation-name'])) {
-            $this->insertInCharacters($_SESSION['user']['id_user'], $_SESSION['user']['name'], $_SESSION['characterCreation-name'], $_SESSION['characterCreation-classe'], $_SESSION['characterCreation-weapon'], $_SESSION['characterCreation-shield']);
-            unset($_SESSION['characterCreation-name']);
-            unset($_SESSION['characterCreation-classe']);
-            unset($_SESSION['characterCreation-weapon']);
-            unset($_SESSION['characterCreation-shield']);
-            header("Location: index.php?controller=mycharacters");
-        } elseif (isset($_SESSION['characterCreation-classe']) && isset($_SESSION['characterCreation-weapon']) && !isset($_SESSION['characterCreation-shield']) && isset($_SESSION['characterCreation-name'])) {
-            $this->insertInCharacters($_SESSION['user']['id_user'], $_SESSION['user']['name'], $_SESSION['characterCreation-name'], $_SESSION['characterCreation-classe'], $_SESSION['characterCreation-weapon'], 'null');
-            unset($_SESSION['characterCreation-name']);
-            unset($_SESSION['characterCreation-classe']);
-            unset($_SESSION['characterCreation-weapon']);
-            header("Location: index.php?controller=mycharacters");
+
+        if ($this->user->getCharacterAmount() < $this->maxCharacters) {
+            if (isset($_SESSION['characterCreation-classe']) && isset($_SESSION['characterCreation-weapon']) && isset($_SESSION['characterCreation-shield']) && isset($_SESSION['characterCreation-name'])) {
+                $this->insertInCharacters($_SESSION['user']['id_user'], $_SESSION['user']['name'], $_SESSION['characterCreation-name'], $_SESSION['characterCreation-classe'], $_SESSION['characterCreation-weapon'], $_SESSION['characterCreation-shield']);
+                unset($_SESSION['characterCreation-name']);
+                unset($_SESSION['characterCreation-classe']);
+                unset($_SESSION['characterCreation-weapon']);
+                unset($_SESSION['characterCreation-shield']);
+                header("Location: index.php?controller=mycharacters");
+            } elseif (isset($_SESSION['characterCreation-classe']) && isset($_SESSION['characterCreation-weapon']) && !isset($_SESSION['characterCreation-shield']) && isset($_SESSION['characterCreation-name'])) {
+                $this->insertInCharacters($_SESSION['user']['id_user'], $_SESSION['user']['name'], $_SESSION['characterCreation-name'], $_SESSION['characterCreation-classe'], $_SESSION['characterCreation-weapon'], 'null');
+                unset($_SESSION['characterCreation-name']);
+                unset($_SESSION['characterCreation-classe']);
+                unset($_SESSION['characterCreation-weapon']);
+                header("Location: index.php?controller=mycharacters");
+            } else {
+                throw new Exception("Un problème est survenu à la création de votre personnage. <br>Veuillez réessayer, si l'erreur persiste, contacter un administrateur.");
+                header("Location: index.php?controller=mycharacters");
+            }
         } else {
-            throw new Exception("Un problème est survenu à la création de votre personnage. <br>Veuillez réessayer, si l'erreur persiste, contacter un administrateur.");
+            throw new Exception("Vous avez déja atteint la limite max de personnage(" . $this->maxCharacters . "). Veuillez supprimez un personnage, et réessayer");
             header("Location: index.php?controller=mycharacters");
         }
     }

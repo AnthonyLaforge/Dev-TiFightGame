@@ -1,6 +1,7 @@
-body {
-  background: linear-gradient(45deg, rgb(253, 61, 3) 0%, rgb(240, 102, 11) 50%, rgb(255, 217, 0) 100%) no-repeat;
-
+body{
+  background: url(/img/background-fight.jpg) rgba(0, 0, 0, 0.466) no-repeat;
+  background-size: cover;
+  background-blend-mode: darken;
 }
 
 #fight {
@@ -8,6 +9,7 @@ body {
   flex-direction: column;
   text-align: center;
   font-size: 1.6em;
+  color: white;
 }
 
 #options {
@@ -30,8 +32,8 @@ body {
   font-size: 2em;
 }
 #end a{
-  color: black;
+  color: goldenrod;
 }
 #logo {
-  margin-top: 467px;
+  margin-top: 200px;
 }

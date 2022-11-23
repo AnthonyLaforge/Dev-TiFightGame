@@ -126,6 +126,15 @@ class User
             return [];
         }
     }
+    public function getCharacterAmount()
+    {
+        $totalCharacters = 0;
+        $playerCharacters = self::getCharacter();
+        foreach ($playerCharacters as $playerCharacter) {
+            $totalCharacters += 1;
+        }
+        return $totalCharacters;
+    }
 
     public function getAllCharacters()
     {

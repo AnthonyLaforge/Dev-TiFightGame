@@ -6,8 +6,12 @@ class MyCharactersPage extends Controller
 {
     protected string $view = "mycharacters.php";
     protected Shield $shield;
+    protected User $user;
 
-
+    public function __construct()
+    {
+        $this->user = new User;
+    }
     public function render()
     {
         if (isset($_SESSION['characterCreation-classe']) || isset($_SESSION['characterCreation-weapon']) || isset($_SESSION['characterCreation-shield']) || isset($_SESSION['characterCreation-name'])) {

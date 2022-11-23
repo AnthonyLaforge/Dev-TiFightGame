@@ -1,9 +1,29 @@
+body{
+  background: url(/img/background-mycharacters.png) rgba(0, 0, 0, 0.582) no-repeat;
+  background-size: cover;
+  background-blend-mode: darken;
+}
 
+h1.title{
+  text-align: center;
+  font-size: 3em;
+  color: goldenrod;
+}
 #mycharacters{
   display: flex;
+  flex-direction: row;
+  justify-content: center;
+  text-align: center;
+  font-size: 2em;
+  color: white;
+}
+#characters-option{
+  display: flex;
   flex-direction: column;
-  box-sizing: border-box;
-  border-radius: 2px;
-  border-width: 2px;
-  border-style: solid;
+  justify-content: center;
+}
+#characters-option a{
+  text-align: center;
+  color: red;
+  font-size: 1.2em;
 }
