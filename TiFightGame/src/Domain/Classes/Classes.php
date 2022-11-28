@@ -1,5 +1,4 @@
 <?php
-require_once('/laragon/www/TiFightGame/src/Domain/Shield/Shield.php');
 class Classes
 {
     public string $name = '';
