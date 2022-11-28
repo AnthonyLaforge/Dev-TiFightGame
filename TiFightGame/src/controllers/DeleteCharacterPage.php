@@ -33,7 +33,7 @@ class DeleteCharacterPage extends Controller
         unset($_SESSION['characterSelectedId']);
         $mycharacters = $this->getMyCharacter();
         if (empty($mycharacters)) {
-          header('Location: /index.php?controller=mycharacters');
+          header('Location: mycharacters');
         }
       }
       if (isset($_SESSION['characterSelectedId']) && (isset($_POST["keepcharacter"]))) {

@@ -2,8 +2,6 @@
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
-require_once('/laragon/www/TiFightGame/src/Domain/Fight/Fight.php');
-require_once('/laragon/www/TiFightGame/src/model.php');
 
 if (isset($_POST['character-select'])) {;
     $sqlQuery = 'SELECT id_user, name_user, name, classe, weapon FROM characters WHERE id_user =:id_user AND name =:name';

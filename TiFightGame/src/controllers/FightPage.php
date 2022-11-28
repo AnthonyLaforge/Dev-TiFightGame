@@ -24,14 +24,14 @@ class FightPage extends Controller
       }
       if (isset($_GET["giveup"])) {
         $this->fight->playerGiveUp($_SESSION['characterSelectedId']);
-        header("Location: /index.php");
+        header("Location: home");
         die();
       }
     } else {
-      header("Location: index.php");
+      header("Location: home");
     }
     if ($_SESSION['round'] > ($this->fight->maxRound)) {
-      header("Location: index.php");
+      header("Location: home");
     }
     include('views/' . $this->view);
   }

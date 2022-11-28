@@ -85,9 +85,8 @@ class User
     }
     public function logout()
     {
-        // unset($_SESSION["user"]);
         session_destroy();
-        header("Location: /index.php");
+        header("Location: home");
         die();
     }
 

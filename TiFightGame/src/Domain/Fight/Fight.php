@@ -15,11 +15,6 @@ class Fight
     {
         $player = $this->character->getClasse($_SESSION['characterSelectedId']);
         return $player;
-        // $combat = new Fight();
-        //     $combat->setCombattant1($classe1);
-        //     $combat->setCombattant2($classe2);
-
-        //     $combat->start();
     }
     public function setOpponent()
     {

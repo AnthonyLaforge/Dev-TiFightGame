@@ -31,14 +31,14 @@
       <?php if ($_SESSION['round'] < ($this->fight->maxRound) && (!isset($this->fight->finalWinner))) : ?>
         <div id="continue-fight">
           <h2>
-            <a href="/index.php?controller=fight">Continuer le combat</a>
+            <a href="fight">Continuer le combat</a>
           </h2>
         </div>
       <?php endif; ?>
       <?php if ($_SESSION['round'] == ($this->fight->maxRound)) : ?>
         <div id="end-fight">
           <h2>
-            <a href="/index.php?controller=fight">Fin du combat</a>
+            <a href="fight">Fin du combat</a>
           </h2>
         </div>
     </div>
@@ -46,7 +46,7 @@
   <?php if ($_SESSION['round'] > ($this->fight->maxRound)) : ?>
     <div id="end">
       <h2>
-        <a href="/index.php">Terminer</a>
+        <a href="home">Terminer</a>
       </h2>
       <div id="logo">
         <img src="/img/tifightgame.png" alt="Logo" size="10px">

@@ -1,0 +1,22 @@
+
+RewriteEngine On
+
+RewriteRule ^home$ index.php
+
+RewriteRule ^disconnect$ index.php?controller=connexion&disconnect
+
+RewriteRule ^connexion$ index.php?controller=connexion
+
+RewriteRule ^register$ index.php?controller=connexion&register
+
+RewriteRule ^mycharacters$ index.php?controller=mycharacters
+
+RewriteRule ^character-creation$ index.php?controller=createcharacter
+
+RewriteRule ^deletecharacter$ index.php?controller=deletecharacter
+
+RewriteRule ^game$ index.php?controller=game
+
+RewriteRule ^fight$ index.php?controller=fight
+
+RewriteRule ^giveup-fight$ index.php?controller=fight&giveup=true

@@ -10,9 +10,11 @@
 </head>
 
 <body>
-  <a href="/index.php?controller=mycharacters">Retour</a>
+  <div id="back">
+    <a href="mycharacters">Retour</a>
+  </div>
 
-  <form action="index.php?controller=deletecharacter" method="post">
+  <form action="deletecharacter" method="post">
     <label for="character-name">Choix du personnage à supprimer</br></label>
     <select name="character-select">
       <option value="">--Choisir un personnage--</option>
@@ -27,7 +29,7 @@
       <h1 class="title">Personnage à supprimer</h1>
       <?php echo $this->character->displayCharacterStats($_SESSION['characterSelectedId']); ?>
     </div>
-    <form action="index.php?controller=deletecharacter" method="post">
+    <form action="deletecharacter" method="post">
       <label for="deletecharacter">Êtes-vous sur de vouloir supprimer ce personnage ?</br></label>
       <input type="submit" name="deletecharacter" id="deletecharacter" value="Oui">
       <input type="submit" name="keepcharacter" id="keepcharacter" value="Non">

@@ -12,13 +12,15 @@
 </head>
 
 <body>
-    <a href="/index.php">Retour</a>
+    <div id="back">
+        <a href="home">Retour</a>
+    </div>
     <?php if (isset($error)) : ?>
         <span class="error"> <?php echo $error->getMessage(); ?></span>
     <?php endif; ?>
     <?php if (!isset($_SESSION['opponentSelectedId']) && !isset($_SESSION['characterSelectedId'])) : ?>
         <div id="choose-character">
-            <form action="index.php?controller=game" method="post">
+            <form action="game" method="post">
                 <label for="character-name">Choix du personnage</br></label>
                 <select name="character-select">
                     <option value="">--Choisir un personnage--</option>
@@ -32,7 +34,7 @@
     <?php endif; ?>
     <?php if (isset($_SESSION['characterSelectedId']) && !isset($_SESSION['opponentSelectedId'])) : ?>
         <div id="choose-opponent">
-            <form action="index.php?controller=game" method="post">
+            <form action="game" method="post">
                 <label for="opponent-name">Choix de l'adversaire</br></label>
                 <select name="opponent-select">
                     <option value="">--Choisir un adversaire--</option>
@@ -61,7 +63,7 @@
 
     </div>
     <?php if ((isset($_SESSION['characterSelectedId'])) && isset($_SESSION['opponentSelectedId'])) : ?>
-        <div id="launch-game"> <a href="index.php?controller=fight">Lancer le combat</a> </div>
+        <div id="launch-game"> <a href="fight">Lancer le combat</a> </div>
     <?php endif; ?>
 </body>
 

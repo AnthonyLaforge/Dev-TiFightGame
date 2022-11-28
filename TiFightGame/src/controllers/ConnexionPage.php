@@ -37,10 +37,10 @@ class ConnexionPage extends Controller
     {
         if ($this->user->login($_POST["name"], $_POST["password"]) == false) {
             throw new Exception("L'utilisateur et/ou le mot de passe est incorrect");
-            header("Location: index.php?controller=connexion");
+            header("Location: connexion");
         } else {
             $this->user->login($_POST["name"], $_POST["password"]);
-            header("Location: index.php");
+            header("Location: home");
         }
     }
 
@@ -49,7 +49,7 @@ class ConnexionPage extends Controller
         if ($this->user->isConnected()) {
             $this->user->logout();
         }
-        header("Location: index.php");
+        header("Location: home");
     }
 
     public function register()
@@ -58,14 +58,14 @@ class ConnexionPage extends Controller
             if ($_POST["password"] == $_POST["confirmpassword"]) {
                 $this->user->register($_POST["name"], $_POST["mail"], $_POST['password']);
                 $this->user->login($_POST["name"], $_POST["password"]);
-                header("Location: index.php");
+                header("Location: home");
             } else {
                 throw new Exception("Les mots de passes doivent être identique");
-                header("Location: index.php?controller=connexion");
+                header("Location:connexion");
             }
         } else {
             throw new Exception("Nom d'utilisateur et/ou adresse mail déja utilisé");
-            header("Location: index.php?controller=connexion");
+            header("Location: connexion");
         }
     }
 }

@@ -38,10 +38,10 @@ class CreateCharacterPage extends Controller
         if (isset($_POST['class-select']) && $_POST['class-select'] != "") {
 
             $_SESSION['characterCreation-classe'] = $_POST['class-select'];
-            header("Location: index.php?controller=createcharacter");
+            header("Location: character-creation");
         } elseif ($_POST['class-select'] == "") {
             throw new Exception("Un problème est survenu en essayant de sélectionner la classe indiqué. Veuillez réessayer.");
-            header("Location: index.php?controller=createcharacter");
+            header("Location: character-creation");
         }
     }
 
@@ -52,10 +52,10 @@ class CreateCharacterPage extends Controller
                 $_SESSION['characterCreation-shield'] = $_POST['shield-select'];
             }
             $_SESSION['characterCreation-weapon'] = $_POST['weapon-select'];
-            header("Location: index.php?controller=createcharacter");
+            header("Location: character-creation");
         } else {
             throw new Exception("Un problème est survenu en essayant de sélectionner l'arme indiqué. <br>Veuillez réessayer.");
-            header("Location: index.php?controller=createcharacter");
+            header("Location: character-creation");
         }
     }
 
@@ -63,10 +63,10 @@ class CreateCharacterPage extends Controller
     {
         if (isset($_POST['character-name']) && (!$this->user->isCharacterNameExist($_POST['character-name']))) {
             $_SESSION['characterCreation-name'] = $_POST['character-name'];
-            header("Location: index.php?controller=createcharacter");
+            header("Location: character-creation");
         } else {
             throw new Exception("Un problème est survenu en essayant de sélectionner le nom du personnage, le nom est déja utilisé. <br>Veuillez réessayer.");
-            header("Location: index.php?controller=createcharacter");
+            header("Location: character-creation");
         }
     }
 

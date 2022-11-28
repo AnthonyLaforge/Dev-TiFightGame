@@ -1,19 +1,4 @@
 <?php
-
-/*spl_autoload_register(function ($class) {
-    $base_path = "../Domain/";
-
-    if(file_exists($base_path . "Classes/" . $class . ".php")) {
-        include_once $base_path . "Classes/" . $class . ".php";
-    } else if(file_exists($base_path . "Fight/" . $class . ".php")) {
-        include_once $base_path . "Fight/" . $class . ".php";
-    } else if(file_exists($base_path . "User/" . $class . ".php")) {
-        include_once $base_path . "User/" . $class . ".php";
-    } else if(file_exists($base_path . "Weapon/" . $class . ".php")) {
-        include_once $base_path . "Weapon/" . $class . ".php";
-    }
-});*/
-
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
