@@ -16,7 +16,7 @@
         <a href="home">Retour</a>
     </div>
     <?php if (isset($error)) : ?>
-        <span class="error"> <?php echo $error->getMessage(); ?></span>
+        <div class="error"> <?php echo $error->getMessage(); ?></div>
     <?php endif; ?>
     <?php if (!isset($_SESSION['opponentSelectedId']) && !isset($_SESSION['characterSelectedId'])) : ?>
         <div id="choose-character">

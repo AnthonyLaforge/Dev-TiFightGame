@@ -13,7 +13,6 @@
   <div id="back">
     <a href="mycharacters">Retour</a>
   </div>
-
   <form action="deletecharacter" method="post">
     <label for="character-name">Choix du personnage à supprimer</br></label>
     <select name="character-select">
@@ -34,7 +33,9 @@
       <input type="submit" name="deletecharacter" id="deletecharacter" value="Oui">
       <input type="submit" name="keepcharacter" id="keepcharacter" value="Non">
     </form>
-
+  <?php endif; ?>
+  <?php if (isset($error)) : ?>
+    <div class="error"> <?php echo $error->getMessage(); ?></div>
   <?php endif; ?>
 </body>
 

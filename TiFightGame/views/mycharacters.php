@@ -17,7 +17,7 @@
     </div>
     <h1 class="title">Mes personnages</h1>
     <?php if (isset($error)) : ?>
-        <span class="error"> <?php echo $error->getMessage(); ?></span>
+        <div class="error"> <?php echo $error->getMessage(); ?></div>
     <?php endif ?>
     <div id="mycharacters">
         <?php echo $this->displayMyCharacters(); ?>

@@ -165,7 +165,7 @@ class User
         );
         $userGamesPlayed = $userGames->fetch();
         if (empty($userGamesPlayed)) {
-            throw new Exception("Une erreur c'est produite en mettant à jour votre nombre de game. Contactez un administrateur");
+            throw new GamesPlayedError("Une erreur c'est produite en mettant à jour votre nombre de game. Contactez un administrateur");
         } else {
             return $userGamesPlayed;
         }

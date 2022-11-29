@@ -16,6 +16,9 @@
     <div id="title">
         <img src="/img/tifightgame.png" alt="Logo" size="10px">
     </div>
+    <?php if (isset($error)) : ?>
+        <div class="error"> <?php echo $error->getMessage(); ?></div>
+    <?php endif ?>
     <div class="userpanel">
         <?php if (!$user->isConnected()) : ?>
             <a href="connexion">Se connecter</a>

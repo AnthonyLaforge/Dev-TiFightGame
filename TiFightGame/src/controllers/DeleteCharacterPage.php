@@ -39,7 +39,7 @@ class DeleteCharacterPage extends Controller
       if (isset($_SESSION['characterSelectedId']) && (isset($_POST["keepcharacter"]))) {
         unset($_SESSION['characterSelectedId']);
       }
-    } catch (Exception $error) {
+    } catch (CharactersError $error) {
     };
     include('views/' . $this->view);
   }
@@ -55,6 +55,11 @@ class DeleteCharacterPage extends Controller
         'id_user' =>  $_SESSION['user']['id_user'],
       ]
     );
+    if (!empty($characterselected)) {
+      return $characterselected;
+    } else {
+      throw new CharactersError("Une erreur s'est produite lors de la suppression de votre personnage");
+    }
   }
 
   public function getMyCharacter()
@@ -79,7 +84,7 @@ class DeleteCharacterPage extends Controller
       if (!empty($characterselected)) {
         return $characterselected;
       } else {
-        throw new Exception("Une erreur s'est produite lors de la sélection de votre personnage");
+        throw new CharactersError("Une erreur s'est produite lors de la sélection de votre personnage");
       }
     }
   }

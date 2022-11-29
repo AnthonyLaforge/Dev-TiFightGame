@@ -7,6 +7,7 @@ class HomePage extends Controller
 
     public function render()
     {
+        try{
         if (isset($_SESSION['characterSelectedId']) || isset($_SESSION['opponentSelectedId'])) {
             Classes::unloadClasse();
         }
@@ -19,6 +20,7 @@ class HomePage extends Controller
             $userInformation = $user->getInformations();
             $userGames = User::getGamesAmount($userInformation['id_user']);
         };
+    } catch(GamesPlayedError $error) {}
         include('views/' . $this->view);
     }
 }

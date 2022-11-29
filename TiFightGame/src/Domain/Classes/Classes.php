@@ -257,4 +257,45 @@ class Classes
         unset($_SESSION['characterSelectedId']);
         unset($_SESSION['opponentSelectedId']);
     }
+
+    public static function isClassExist($class)
+    {
+        $existingClass = array(
+            "Combattant",
+            "Sorcier",
+            "Percuteur",
+            "Chevalier",
+        );
+        if (in_array($class, $existingClass)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public static function isWeaponExist($weapon)
+    {
+        $existingWeapon = array(
+            "Aucune",
+            "Épée",
+            "Baguette Basique",
+        );
+        if (in_array($weapon, $existingWeapon)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public static function isShieldExist($shield)
+    {
+        $existingShield = array(
+            "Bouclier en boid",
+        );
+        if (in_array($shield, $existingShield)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

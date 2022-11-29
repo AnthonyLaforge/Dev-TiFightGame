@@ -61,3 +61,9 @@ body {
   text-decoration: none;
   color: goldenrod;
 }
+
+.error{
+  color: red;
+  text-align: center;
+  font-size: 1.5em;
+}

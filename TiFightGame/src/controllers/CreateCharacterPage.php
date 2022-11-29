@@ -28,33 +28,33 @@ class CreateCharacterPage extends Controller
             } elseif ((isset($_SESSION['characterCreation-name']) && (isset($_SESSION['characterCreation-weapon'])) && (isset($_SESSION['characterCreation-classe'])))) {
                 $this->createMyCharacter();
             }
-        } catch (Exception $error) {
+        } catch (CharactersError $error) {
         };
         include('views/' . $this->view);
     }
 
     public function setCharacterClasse()
     {
-        if (isset($_POST['class-select']) && $_POST['class-select'] != "") {
+        if (isset($_POST['class-select']) && $_POST['class-select'] != "" && Classes::isClassExist($_POST['class-select'])) {
 
             $_SESSION['characterCreation-classe'] = $_POST['class-select'];
             header("Location: character-creation");
-        } elseif ($_POST['class-select'] == "") {
-            throw new Exception("Un problème est survenu en essayant de sélectionner la classe indiqué. Veuillez réessayer.");
+        } else {
+            throw new CharactersError("Un problème est survenu en essayant de sélectionner la classe indiqué. Veuillez réessayer.");
             header("Location: character-creation");
         }
     }
 
     public function setCharacterWeapon()
     {
-        if (isset($_POST['weapon-select'])) {
-            if (isset($_POST['shield-select'])) {
+        if (isset($_POST['weapon-select']) && Classes::isWeaponExist($_POST['weapon-select'])) {
+            if (isset($_POST['shield-select']) && Classes::isShieldExist($_POST['shield-select'])) {
                 $_SESSION['characterCreation-shield'] = $_POST['shield-select'];
             }
             $_SESSION['characterCreation-weapon'] = $_POST['weapon-select'];
             header("Location: character-creation");
         } else {
-            throw new Exception("Un problème est survenu en essayant de sélectionner l'arme indiqué. <br>Veuillez réessayer.");
+            throw new CharactersError("Un problème est survenu en essayant de sélectionner l'arme indiqué. <br>Veuillez réessayer.");
             header("Location: character-creation");
         }
     }
@@ -65,7 +65,7 @@ class CreateCharacterPage extends Controller
             $_SESSION['characterCreation-name'] = $_POST['character-name'];
             header("Location: character-creation");
         } else {
-            throw new Exception("Un problème est survenu en essayant de sélectionner le nom du personnage, le nom est déja utilisé. <br>Veuillez réessayer.");
+            throw new CharactersError("Un problème est survenu en essayant de sélectionner le nom du personnage, le nom est déja utilisé. <br>Veuillez réessayer.");
             header("Location: character-creation");
         }
     }
@@ -88,11 +88,11 @@ class CreateCharacterPage extends Controller
                 unset($_SESSION['characterCreation-weapon']);
                 header("Location: index.php?controller=mycharacters");
             } else {
-                throw new Exception("Un problème est survenu à la création de votre personnage. <br>Veuillez réessayer, si l'erreur persiste, contacter un administrateur.");
+                throw new CharactersError("Un problème est survenu à la création de votre personnage. <br>Veuillez réessayer, si l'erreur persiste, contacter un administrateur.");
                 header("Location: index.php?controller=mycharacters");
             }
         } else {
-            throw new Exception("Vous avez déja atteint la limite max de personnage(" . $this->maxCharacters . "). Veuillez supprimez un personnage, et réessayer");
+            throw new CharactersError("Vous avez déja atteint la limite max de personnage(" . $this->maxCharacters . "). Veuillez supprimez un personnage, et réessayer");
             header("Location: index.php?controller=mycharacters");
         }
     }

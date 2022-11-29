@@ -25,9 +25,9 @@ class MyCharactersPage extends Controller
             if (!empty($this->getMyCharacters())) {
                 $this->getMyCharacters();
             } else {
-                throw new Exception("Vous n'avez aucun personnage");
+                throw new CharactersError("Vous n'avez aucun personnage");
             }
-        } catch (Exception $error) {
+        } catch (CharactersError $error) {
         }
         include('views/' . $this->view);
     }

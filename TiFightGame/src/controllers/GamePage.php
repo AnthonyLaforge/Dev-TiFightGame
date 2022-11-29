@@ -41,7 +41,7 @@ class GamePage extends Controller
             if (isset($_SESSION['opponentSelectedId'])) {
                 $opponentCharacter = $this->getCharacterStats($_SESSION['opponentSelectedId']);
             }
-        } catch (Exception $error) {
+        } catch (CharactersError $error) {
             $myopponents = $this->getMyOpponent();
             $mycharacters = $this->getMyCharacter();
         };
@@ -72,7 +72,7 @@ class GamePage extends Controller
             if (!empty($characterselected)) {
                 return $characterselected;
             } else {
-                throw new Exception("Une erreur s'est produite lors de la sélection de votre personnage");
+                throw new CharactersError("Une erreur s'est produite lors de la sélection de votre personnage");
             }
         }
     }
@@ -91,7 +91,7 @@ class GamePage extends Controller
         if (!empty($myopponents)) {
             return $myopponents;
         } else {
-            throw new Exception("Une erreur s'est produite lors du chargement de vos potentiels adversaires");
+            throw new CharactersError("Une erreur s'est produite lors du chargement de vos potentiels adversaires");
         }
     }
 
@@ -112,7 +112,7 @@ class GamePage extends Controller
             return $opponentselected;
         } else {
             $myopponents = $this->getMyOpponent();
-            throw new Exception("Une erreur s'est produite lors de la sélection de votre adversaire");
+            throw new CharactersError("Une erreur s'est produite lors de la sélection de votre adversaire");
         }
     }
     public function getCharacterStats($id)

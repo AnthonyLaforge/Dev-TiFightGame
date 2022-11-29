@@ -31,3 +31,8 @@ h1.title{
   text-align: center;
   color: white;
 }
+.error{
+  color: rgb(255, 0, 0);
+  text-align: center;
+  font-size: 2em;
+}
