@@ -10,27 +10,30 @@
 </head>
 
 <body>
-
+    <?php if (!isset($_GET["register"])) : ?>
+        <div id="back"><a href="home">Retour</a></div>
+    <?php endif; ?>
     <?php if (isset($error)) : ?>
         <div class="error"> <?php echo $error->getMessage(); ?></div>
     <?php endif ?>
     <?php if (!isset($_GET["register"])) : ?>
-        <div id="back"><a href="home">Retour</a></div>
+
         <div id="connexion">
             <form action="connexion" method="post">
                 <label for="name">Nom d'utilisateur</label>
                 <input type="text" name="name" id="name" required>
                 <label for="password">Mot de passe</label>
-                <input type="text" name="password" id="password" required>
+                <input type="password" name="password" id="password" required>
                 <input type="submit" value="Connexion">
             </form>
-            <span class="noaccount"> <a href="register">Je n'ai pas de compte</a></div>
+            <span class="noaccount"> <a href="register">Je n'ai pas de compte</a>
+        </div>
         </div>
     <?php endif ?>
 
     <?php if (isset($_GET["register"])) : ?>
         <div id="back"><a href="connexion">Retour</a></div>
-        <div id="register">
+        <div class="register">
             <form action="register" method="post">
                 <label for="name">Nom d'utilisateur</label>
                 <input type="text" name="name" id="name" required>
@@ -45,5 +48,6 @@
         </div>
     <?php endif ?>
 </body>
+<script src="/js/respensiveconnexion.js"> defer</script>
 
 </html>

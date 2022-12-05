@@ -7,9 +7,12 @@
   margin: 10px;
 }
 
-#register{
+.register{
   text-align: center;
   margin: 10px;
+  display: flex;
+  flex-direction: column;
+  
 }
 .error{
   color: red;

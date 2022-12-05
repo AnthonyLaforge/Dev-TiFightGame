@@ -12,7 +12,7 @@
 <body>
     <div id="back">
         <a href="mycharacters">Retour</a>
-    </div>
+    </div> 
     <h1 class="title">Création de mon Personnage</h1>
     <div id="character-resume">
         <?php if (isset($_SESSION['characterCreation-classe'])) : ?>
@@ -78,7 +78,7 @@
                 <label for="shield-select">Bouclier de votre chevalier</label>
                 <select name="shield-select">
                     <option value="Aucun">--Choisir un bouclier--</option>
-                    <option value="Bouclier en bois" require>Bouclier en bois</option>
+                    <option value="Bouclier en bois" required>Bouclier en bois</option>
                 </select>
                 <input type="submit" value="Suivant">
             </form></br>

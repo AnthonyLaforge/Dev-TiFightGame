@@ -41,5 +41,5 @@
 <?php endif; ?>
 
 </body>
-
+    <script src="/js/respensivehome.js"> defer </script>
 </html>

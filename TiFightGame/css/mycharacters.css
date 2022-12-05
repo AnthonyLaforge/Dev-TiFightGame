@@ -1,6 +1,8 @@
 body{
   background: url(/img/background-mycharacters.png) rgba(0, 0, 0, 0.582) no-repeat;
+  background-position-x: center;
   background-size: cover;
+  background-attachment: fixed;
   background-blend-mode: darken;
 }
 

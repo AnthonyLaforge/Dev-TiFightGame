@@ -42,18 +42,22 @@
           </h2>
         </div>
     </div>
-  <?php endif; ?>
-  <?php if ($_SESSION['round'] > ($this->fight->maxRound)) : ?>
-    <div id="end">
-      <h2>
-        <a href="home">Terminer</a>
-      </h2>
-      <div id="logo">
-        <img src="/img/tifightgame.png" alt="Logo" size="10px">
-      </div>
-    </div>
-  <?php endif; ?>
   </div>
+<?php endif; ?>
+<?php if ($_SESSION['round'] > ($this->fight->maxRound)) : ?>
+  <div id="end">
+    <h2>
+      <a href="home">Terminer</a>
+    </h2>
+    <div id="logo">
+      <img src="/img/tifightgame.png" alt="Logo" size="10px">
+    </div>
+  </div>
+<?php endif; ?>
+
 </body>
+<script src="/js/respensivefight.js">
+  defer
+</script>
 
 </html>

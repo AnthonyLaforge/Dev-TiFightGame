@@ -66,5 +66,5 @@
         <div id="launch-game"> <a href="fight">Lancer le combat</a> </div>
     <?php endif; ?>
 </body>
-
+        <script src="/js/respensivegame.js"> defer </script>
 </html>

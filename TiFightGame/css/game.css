@@ -1,7 +1,9 @@
 body {
   background: url(/img/background-game.jpg)   rgba(75, 23, 8, 0.678) no-repeat;
-    background-size: cover;
-    background-blend-mode: darken;
+  background-position-x: center;
+  background-size: cover;
+  background-attachment: fixed;
+  background-blend-mode: darken;
 }
 #back a{
   font-size: 1.5em;
@@ -32,20 +34,18 @@ body {
 #character-stats {
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: space-evenly;
   font-size: 1.5em;
   
 
 }
 
 #player-stats {
-  margin: 50px;
   text-align: center;
   color: rgb(116, 240, 116);
 }
 
 #opponent-stats {
-  margin: 50px;
   text-align: center;
   color: rgb(255, 0, 0);
 }
