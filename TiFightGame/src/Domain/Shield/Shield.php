@@ -10,7 +10,7 @@ class Shield
         return $this->shieldName;
     }
 
-    public function getShieldArmor()
+    public function getShieldArmor() 
     {
         return $this->armor;
     }

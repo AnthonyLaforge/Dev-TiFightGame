@@ -9,4 +9,9 @@ class BasicShield extends Shield
         $this->durability = $durability;
         
     }
+
+    public function getShieldArmor() 
+    {
+        return $this->armor;
+    }
 }
