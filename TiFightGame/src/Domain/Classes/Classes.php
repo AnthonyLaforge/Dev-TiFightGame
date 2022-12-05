@@ -290,7 +290,7 @@ class Classes
     public static function isShieldExist($shield)
     {
         $existingShield = array(
-            "Bouclier en boid",
+            "Bouclier en bois",
         );
         if (in_array($shield, $existingShield)) {
             return true;
