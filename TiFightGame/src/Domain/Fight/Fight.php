@@ -66,7 +66,7 @@ class Fight
             echo $player1->getName() . " a gagné " . $_SESSION["player1"] . " rounds<br/>";
             echo $player2->getName() . " a gagné " . $_SESSION["player2"] . " rounds<br/>";
         } else {
-            if ($_SESSION["player1"] == $this->maxRound) {
+            if ($_SESSION["player1"] > $_SESSION["player2"]) {
                 $finalWinner = $player1;
                 $finalLooser = $player2;
             } else {
