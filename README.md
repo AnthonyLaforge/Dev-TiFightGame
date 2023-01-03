@@ -1,5 +1,5 @@
 # Dev-TiFightGame
-Création d'un simulateur de combat de personnage (DEVELOPPEMENT EN COURS)
+Création d'un simulateur de combat de personnage
 
 Système de création de personne par utilisateur.
 Choix parmi plusieurs classes et armes, qui ont chacun leurs statistiques spécifiques.
